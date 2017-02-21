@@ -23,12 +23,12 @@ void StaticDialog::goToCenter()
 	RECT rc;
 	::GetClientRect(_hParent, &rc);
 	POINT center;
-	center.x = rc.left + (rc.right - rc.left)/2;
-	center.y = rc.top + (rc.bottom - rc.top)/2;
+	center.x = rc.left + (rc.right - rc.left) / 2;
+	center.y = rc.top + (rc.bottom - rc.top) / 2;
 	::ClientToScreen(_hParent, &center);
 
-	int x = center.x - (_rc.right - _rc.left)/2;
-	int y = center.y - (_rc.bottom - _rc.top)/2;
+	int x = center.x - (_rc.right - _rc.left) / 2;
+	int y = center.y - (_rc.bottom - _rc.top) / 2;
 
 	::SetWindowPos(_hSelf, HWND_TOP, x, y, _rc.right - _rc.left, _rc.bottom - _rc.top, SWP_SHOWWINDOW);
 }
@@ -37,14 +37,17 @@ HGLOBAL StaticDialog::makeRTLResource(int dialogID, DLGTEMPLATE **ppMyDlgTemplat
 {
 	// Get Dlg Template resource
 	HRSRC  hDialogRC = ::FindResource(_hInst, MAKEINTRESOURCE(dialogID), RT_DIALOG);
+
 	if (!hDialogRC)
 		return NULL;
 
 	HGLOBAL  hDlgTemplate = ::LoadResource(_hInst, hDialogRC);
+
 	if (!hDlgTemplate)
 		return NULL;
 
 	DLGTEMPLATE *pDlgTemplate = reinterpret_cast<DLGTEMPLATE *>(::LockResource(hDlgTemplate));
+
 	if (!pDlgTemplate)
 		return NULL;
 
@@ -56,6 +59,7 @@ HGLOBAL StaticDialog::makeRTLResource(int dialogID, DLGTEMPLATE **ppMyDlgTemplat
 	::memcpy(*ppMyDlgTemplate, pDlgTemplate, sizeDlg);
 
 	DLGTEMPLATEEX *pMyDlgTemplateEx = reinterpret_cast<DLGTEMPLATEEX *>(*ppMyDlgTemplate);
+
 	if (pMyDlgTemplateEx->signature == 0xFFFF)
 		pMyDlgTemplateEx->exStyle |= WS_EX_LAYOUTRTL;
 	else
@@ -66,18 +70,16 @@ HGLOBAL StaticDialog::makeRTLResource(int dialogID, DLGTEMPLATE **ppMyDlgTemplat
 
 void StaticDialog::create(int dialogID, bool isRTL)
 {
-	if (isRTL)
-	{
+	if (isRTL) {
 		DLGTEMPLATE *pMyDlgTemplate = NULL;
 		HGLOBAL hMyDlgTemplate = makeRTLResource(dialogID, &pMyDlgTemplate);
 		_hSelf = ::CreateDialogIndirectParam(_hInst, pMyDlgTemplate, _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
 		::GlobalFree(hMyDlgTemplate);
-	}
-	else
+	} else {
 		_hSelf = ::CreateDialogParam(_hInst, MAKEINTRESOURCE(dialogID), _hParent, dlgProc, reinterpret_cast<LPARAM>(this));
+	}
 
-	if (!_hSelf)
-	{
+	if (!_hSelf) {
 		DWORD err = ::GetLastError();
 		char errMsg[256];
 		sprintf(errMsg, "CreateDialogParam() return NULL.\rGetLastError() == %u", err);
@@ -91,9 +93,8 @@ void StaticDialog::create(int dialogID, bool isRTL)
 
 INT_PTR CALLBACK StaticDialog::dlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	switch (message)
-	{
-		case WM_INITDIALOG:
+	switch (message) {
+	case WM_INITDIALOG:
 		{
 			StaticDialog *pStaticDlg = reinterpret_cast<StaticDialog *>(lParam);
 			pStaticDlg->_hSelf = hwnd;
@@ -103,12 +104,13 @@ INT_PTR CALLBACK StaticDialog::dlgProc(HWND hwnd, UINT message, WPARAM wParam, L
 
 			return TRUE;
 		}
-
-		default:
+	default:
 		{
 			StaticDialog *pStaticDlg = reinterpret_cast<StaticDialog *>(::GetWindowLongPtr(hwnd, GWLP_USERDATA));
+
 			if (!pStaticDlg)
 				return FALSE;
+
 			return pStaticDlg->run_dlgProc(message, wParam, lParam);
 		}
 	}
@@ -122,32 +124,31 @@ void StaticDialog::alignWith(HWND handle, HWND handle2Align, PosAlign pos, POINT
 	point.x = rc.left;
 	point.y = rc.top;
 
-	switch (pos)
-	{
-		case PosAlign::left:
+	switch (pos) {
+	case PosAlign::left:
 		{
 			::GetWindowRect(handle2Align, &rc2);
 			point.x -= rc2.right - rc2.left;
-			break;
 		}
-		case PosAlign::right:
+		break;
+	case PosAlign::right:
 		{
 			::GetWindowRect(handle, &rc2);
 			point.x += rc2.right - rc2.left;
-			break;
 		}
-		case PosAlign::top:
+		break;
+	case PosAlign::top:
 		{
 			::GetWindowRect(handle2Align, &rc2);
 			point.y -= rc2.bottom - rc2.top;
-			break;
 		}
-		case PosAlign::bottom:
+		break;
+	case PosAlign::bottom:
 		{
 			::GetWindowRect(handle, &rc2);
 			point.y += rc2.bottom - rc2.top;
-			break;
 		}
+		break;
 	}
 
 	::ScreenToClient(_hSelf, &point);

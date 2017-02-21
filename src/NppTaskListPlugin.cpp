@@ -21,29 +21,25 @@ extern FuncItem funcItem[nbFunc];
 extern NppData nppData;
 
 
-BOOL APIENTRY DllMain( HANDLE hModule, 
-                       DWORD  reasonForCall, 
-                       LPVOID /*lpReserved*/ )
+BOOL APIENTRY DllMain(HANDLE hModule,
+					  DWORD  reasonForCall,
+					  LPVOID /*lpReserved*/)
 {
-    switch (reasonForCall)
-    {
-      case DLL_PROCESS_ATTACH:
-        pluginInit(hModule);
-        break;
-
-      case DLL_PROCESS_DETACH:
+	switch (reasonForCall) {
+	case DLL_PROCESS_ATTACH:
+		pluginInit(hModule);
+		break;
+	case DLL_PROCESS_DETACH:
 		commandMenuCleanUp();
-        pluginCleanUp();
-        break;
+		pluginCleanUp();
+		break;
+	case DLL_THREAD_ATTACH:
+		break;
+	case DLL_THREAD_DETACH:
+		break;
+	}
 
-      case DLL_THREAD_ATTACH:
-        break;
-
-      case DLL_THREAD_DETACH:
-        break;
-    }
-
-    return TRUE;
+	return TRUE;
 }
 
 
@@ -67,19 +63,14 @@ extern "C" __declspec(dllexport) FuncItem * getFuncsArray(int *nbF)
 
 extern "C" __declspec(dllexport) void beNotified(SCNotification *notifyCode)
 {
-	switch (notifyCode->nmhdr.code) 
-	{
+	switch (notifyCode->nmhdr.code) {
 		//update list on notify SCN_MODIFIED, NPPN_BUFFERACTIVATED
-		case SCN_MODIFIED: //change in current document
-		{
-			findTasks();
-			break;
-		}
-		case NPPN_BUFFERACTIVATED: //changed document
-		{
-			findTasks();
-			break;
-		}
+	case SCN_MODIFIED: //change in current document
+		findTasks();
+		break;
+	case NPPN_BUFFERACTIVATED: //changed document
+		findTasks();
+		break;
 	}
 }
 
@@ -90,18 +81,13 @@ extern "C" __declspec(dllexport) void beNotified(SCNotification *notifyCode)
 // http://sourceforge.net/forum/forum.php?forum_id=482781
 //
 extern "C" __declspec(dllexport) LRESULT messageProc(UINT /*Message*/, WPARAM /*wParam*/, LPARAM /*lParam*/)
-{/*
-	if (Message == WM_MOVE)
-	{
-		::MessageBox(NULL, "move", "", MB_OK);
-	}
-*/
+{
 	return TRUE;
 }
 
 #ifdef UNICODE
 extern "C" __declspec(dllexport) BOOL isUnicode()
 {
-    return TRUE;
+	return TRUE;
 }
 #endif //UNICODE
