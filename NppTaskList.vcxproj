@@ -69,20 +69,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>.\include;$(IncludePath)</IncludePath>
+    <IntDir>$(Configuration)\$(Platform)\</IntDir>
+    <OutDir>.\build\debug\$(Platform)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>.\include;$(IncludePath)</IncludePath>
+    <IntDir>$(Configuration)\$(Platform)\</IntDir>
+    <OutDir>.\build\debug\$(Platform)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>.\include;$(IncludePath)</IncludePath>
-    <OutDir>.\bin\</OutDir>
+    <OutDir>.\build\$(Platform)\</OutDir>
+    <IntDir>$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>.\include;$(IncludePath)</IncludePath>
-    <OutDir>.\bin64\</OutDir>
+    <OutDir>.\build\$(Platform)\</OutDir>
+    <IntDir>$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

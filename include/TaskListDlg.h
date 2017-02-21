@@ -33,40 +33,45 @@ typedef struct
 
 class TaskListDlg : public DockingDlgInterface
 {
-public :
+public:
 	TaskListDlg() : DockingDlgInterface(IDD_PLUGINGOLINE_DEMO){};
 
-    virtual void display(bool toShow = true) const {
-        DockingDlgInterface::display(toShow);
-        if (toShow)
-            ::SetFocus(::GetDlgItem(_hSelf, ID_GOLINE_EDIT));
-    };
+	virtual void display(bool toShow = true) const
+	{
+		DockingDlgInterface::display(toShow);
 
-	void setParent(HWND parent2set){
+		if (toShow)
+			::SetFocus(::GetDlgItem(_hSelf, ID_GOLINE_EDIT));
+	};
+
+	void setParent(HWND parent2set)
+	{
 		_hParent = parent2set;
 	};
 
 	void SetList(const std::list<TodoItem>& items)
 	{
-		HWND _hList = ::GetDlgItem( _hSelf, ID_TODO_LIST );
-		if ( !_hList )
+		HWND _hList = ::GetDlgItem(_hSelf, ID_TODO_LIST);
+
+		if (!_hList)
 			return;
-        //clear list LB_RESETCONTENT
-		::SendMessageA( _hList, LB_RESETCONTENT, NULL, NULL );
+
+		//clear list LB_RESETCONTENT
+		::SendMessageA(_hList, LB_RESETCONTENT, NULL, NULL);
 		todoItems.clear();
 		//add list items LB_ADDSTRING
 		std::list<TodoItem>::const_iterator it;
-		for ( it = items.begin(); it != items.end(); ++it )
-		{
-			::SendMessageA( _hList, LB_ADDSTRING, NULL, (LPARAM)it->text );
+
+		for (it = items.begin(); it != items.end(); ++it) {
+			::SendMessageA(_hList, LB_ADDSTRING, NULL, (LPARAM)it->text);
 			todoItems.push_back(*it);
 		}
-    };
+	};
 
-protected :
+protected:
 	virtual INT_PTR CALLBACK run_dlgProc(UINT message, WPARAM wParam, LPARAM lParam);
 
-private :
+private:
 	std::vector<TodoItem> todoItems;
 };
 

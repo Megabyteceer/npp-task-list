@@ -1,0 +1,7 @@
+*.exp
+*.lib
+*.opensdf
+*.sdf
+*.suo
+Debug
+Release

@@ -3,7 +3,7 @@
 
 enum e_config_value
 {
-	_config_value_invalid= -1,
+	_config_value_invalid = -1,
 	_config_value_version,
 	_config_value_keywords,
 	k_config_value_count
@@ -25,7 +25,7 @@ const char * const *get_keyword_list(int *out_keyword_count);
 
 enum
 {
-	k_max_keyword_length= 255,
+	k_max_keyword_length = 255,
 };
 
 #endif // CONFIG_H

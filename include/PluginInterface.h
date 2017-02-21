@@ -32,10 +32,10 @@ struct NppData {
 	HWND _scintillaSecondHandle;
 };
 
-typedef void (__cdecl * PFUNCSETINFO)(NppData);
-typedef void (__cdecl * PFUNCPLUGINCMD)();
-typedef void (__cdecl * PBENOTIFIED)(SCNotification *);
-typedef LRESULT (__cdecl * PMESSAGEPROC)(UINT Message, WPARAM wParam, LPARAM lParam);
+typedef void(__cdecl * PFUNCSETINFO)(NppData);
+typedef void(__cdecl * PFUNCPLUGINCMD)();
+typedef void(__cdecl * PBENOTIFIED)(SCNotification *);
+typedef LRESULT(__cdecl * PMESSAGEPROC)(UINT Message, WPARAM wParam, LPARAM lParam);
 
 
 struct ShortcutKey {
