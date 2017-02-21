@@ -20,83 +20,69 @@
 extern FuncItem funcItem[nbFunc];
 extern NppData nppData;
 
-
-BOOL APIENTRY DllMain( HANDLE hModule, 
-                       DWORD  reasonForCall, 
-                       LPVOID /*lpReserved*/ )
+BOOL APIENTRY DllMain(HANDLE hModule,
+                      DWORD  reasonForCall,
+                      LPVOID /*lpReserved*/)
 {
-    switch (reasonForCall)
-    {
-      case DLL_PROCESS_ATTACH:
+    switch (reasonForCall) {
+    case DLL_PROCESS_ATTACH:
         pluginInit(hModule);
         break;
-
-      case DLL_PROCESS_DETACH:
-		commandMenuCleanUp();
-        pluginCleanUp();
+    case DLL_PROCESS_DETACH:
+        {
+            commandMenuCleanUp();
+            pluginCleanUp();
+        }
         break;
-
-      case DLL_THREAD_ATTACH:
+    case DLL_THREAD_ATTACH:
         break;
-
-      case DLL_THREAD_DETACH:
+    case DLL_THREAD_DETACH:
         break;
     }
 
     return TRUE;
 }
 
-
 extern "C" __declspec(dllexport) void setInfo(NppData notpadPlusData)
 {
-	nppData = notpadPlusData;
-	commandMenuInit();
+    nppData = notpadPlusData;
+    commandMenuInit();
 }
 
 extern "C" __declspec(dllexport) const TCHAR * getName()
 {
-	return NPP_PLUGIN_NAME;
+    return NPP_PLUGIN_NAME;
 }
 
 extern "C" __declspec(dllexport) FuncItem * getFuncsArray(int *nbF)
 {
-	*nbF = nbFunc;
-	return funcItem;
+    *nbF = nbFunc;
+    return funcItem;
 }
-
 
 extern "C" __declspec(dllexport) void beNotified(SCNotification *notifyCode)
 {
-	switch (notifyCode->nmhdr.code) 
-	{
-		//update list on notify SCN_MODIFIED, NPPN_BUFFERACTIVATED
-		case SCN_MODIFIED: //change in current document
-		{
-			findTasks();
-			break;
-		}
-		case NPPN_BUFFERACTIVATED: //changed document
-		{
-			findTasks();
-			break;
-		}
-	}
+    switch (notifyCode->nmhdr.code) {
+        //update list on notify SCN_MODIFIED, NPPN_BUFFERACTIVATED
+    case SCN_MODIFIED: //change in current document
+        findTasks();
+        break;
+    case NPPN_BUFFERACTIVATED: //changed document
+        findTasks();
+        break;
+    }
 }
-
 
 // Here you can process the Npp Messages 
 // I will make the messages accessible little by little, according to the need of plugin development.
 // Please let me know if you need to access to some messages :
 // http://sourceforge.net/forum/forum.php?forum_id=482781
 //
-extern "C" __declspec(dllexport) LRESULT messageProc(UINT /*Message*/, WPARAM /*wParam*/, LPARAM /*lParam*/)
-{/*
-	if (Message == WM_MOVE)
-	{
-		::MessageBox(NULL, "move", "", MB_OK);
-	}
-*/
-	return TRUE;
+extern "C" __declspec(dllexport) LRESULT messageProc(UINT /*Message*/,
+                                                     WPARAM /*wParam*/,
+                                                     LPARAM /*lParam*/)
+{
+    return TRUE;
 }
 
 #ifdef UNICODE

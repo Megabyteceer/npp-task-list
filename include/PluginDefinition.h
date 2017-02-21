@@ -80,10 +80,10 @@ void displayDialog();
 
 //converts a char* to a wide character string
 //note: the caller is responsible for cleaning up the wide character string when they are finished using ::SysFreeString(..)
-bool CharToWideChar( const char* _inString, BSTR* _out );
+bool CharToWideChar(const char* _inString, BSTR* _out);
 
 void findTasks();
 
-void DockableDlgDemo();
+void DockTaskListDlg();
 
 #endif //PLUGINDEFINITION_H

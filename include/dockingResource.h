@@ -38,26 +38,23 @@
     #define DMM_FLOATALL                (DMM_MSG + 5)
     #define DMM_MOVE                    (DMM_MSG + 6)
     #define DMM_UPDATEDISPINFO          (DMM_MSG + 7)
-    #define DMM_GETIMAGELIST			(DMM_MSG + 8)
+    #define DMM_GETIMAGELIST            (DMM_MSG + 8)
     #define DMM_GETICONPOS              (DMM_MSG + 9)
-    #define DMM_DROPDATA				(DMM_MSG + 10)
-    #define DMM_MOVE_SPLITTER		    (DMM_MSG + 11)
-	#define DMM_CANCEL_MOVE				(DMM_MSG + 12)
-	#define DMM_LBUTTONUP				(DMM_MSG + 13)
+    #define DMM_DROPDATA                (DMM_MSG + 10)
+    #define DMM_MOVE_SPLITTER           (DMM_MSG + 11)
+    #define DMM_CANCEL_MOVE             (DMM_MSG + 12)
+    #define DMM_LBUTTONUP               (DMM_MSG + 13)
 
 #define DMN_FIRST 1050
-	#define DMN_CLOSE					(DMN_FIRST + 1)
-	//nmhdr.code = DWORD(DMN_CLOSE, 0));
-	//nmhdr.hwndFrom = hwndNpp;
-	//nmhdr.idFrom = ctrlIdNpp;
+    #define DMN_CLOSE                   (DMN_FIRST + 1)
+    //nmhdr.code = DWORD(DMN_CLOSE, 0));
+    //nmhdr.hwndFrom = hwndNpp;
+    //nmhdr.idFrom = ctrlIdNpp;
 
-	#define DMN_DOCK		            (DMN_FIRST + 2)
-    #define DMN_FLOAT					(DMN_FIRST + 3)
-	//nmhdr.code = DWORD(DMN_XXX, int newContainer);
-	//nmhdr.hwndFrom = hwndNpp;
-	//nmhdr.idFrom = ctrlIdNpp;
-
-
+    #define DMN_DOCK                    (DMN_FIRST + 2)
+    #define DMN_FLOAT                   (DMN_FIRST + 3)
+    //nmhdr.code = DWORD(DMN_XXX, int newContainer);
+    //nmhdr.hwndFrom = hwndNpp;
+    //nmhdr.idFrom = ctrlIdNpp;
 
 #endif //DOCKING_RESOURCE_H
-
