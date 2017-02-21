@@ -866,21 +866,21 @@ typedef sptr_t(*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, s
 namespace Scintilla {
 #endif
 
-	struct Sci_CharacterRange {
-		long cpMin;
-		long cpMax;
-	};
+    struct Sci_CharacterRange {
+        long cpMin;
+        long cpMax;
+    };
 
-	struct Sci_TextRange {
-		struct Sci_CharacterRange chrg;
-		char *lpstrText;
-	};
+    struct Sci_TextRange {
+        struct Sci_CharacterRange chrg;
+        char *lpstrText;
+    };
 
-	struct Sci_TextToFind {
-		struct Sci_CharacterRange chrg;
-		char *lpstrText;
-		struct Sci_CharacterRange chrgText;
-	};
+    struct Sci_TextToFind {
+        struct Sci_CharacterRange chrg;
+        char *lpstrText;
+        struct Sci_CharacterRange chrgText;
+    };
 
 #define CharacterRange Sci_CharacterRange
 #define TextRange Sci_TextRange
@@ -888,64 +888,64 @@ namespace Scintilla {
 
 #ifdef PLATFORM_H
 
-	/* This structure is used in printing and requires some of the graphics types
-	 * from Platform.h.  Not needed by most client code. */
+    /* This structure is used in printing and requires some of the graphics types
+     * from Platform.h.  Not needed by most client code. */
 
-	struct Sci_RangeToFormat {
-		SurfaceID hdc;
-		SurfaceID hdcTarget;
-		PRectangle rc;
-		PRectangle rcPage;
-		Sci_CharacterRange chrg;
-	};
+    struct Sci_RangeToFormat {
+        SurfaceID hdc;
+        SurfaceID hdcTarget;
+        PRectangle rc;
+        PRectangle rcPage;
+        Sci_CharacterRange chrg;
+    };
 
 #define RangeToFormat Sci_RangeToFormat
 
 #endif
 
-	struct Sci_NotifyHeader {
-		/* Compatible with Windows NMHDR.
-		 * hwndFrom is really an environment specific window handle or pointer
-		 * but most clients of Scintilla.h do not have this type visible. */
-		void *hwndFrom;
-		uptr_t idFrom;
-		unsigned int code;
-	};
+    struct Sci_NotifyHeader {
+        /* Compatible with Windows NMHDR.
+         * hwndFrom is really an environment specific window handle or pointer
+         * but most clients of Scintilla.h do not have this type visible. */
+        void *hwndFrom;
+        uptr_t idFrom;
+        unsigned int code;
+    };
 
 #define NotifyHeader Sci_NotifyHeader
 
-	struct SCNotification {
-		struct Sci_NotifyHeader nmhdr;
-		int position;	/* SCN_STYLENEEDED, SCN_MODIFIED, SCN_DWELLSTART, SCN_DWELLEND */
-		int ch;		/* SCN_CHARADDED, SCN_KEY */
-		int modifiers;	/* SCN_KEY */
-		int modificationType;	/* SCN_MODIFIED */
-		const char *text;	/* SCN_MODIFIED, SCN_USERLISTSELECTION, SCN_AUTOCSELECTION */
-		int length;		/* SCN_MODIFIED */
-		int linesAdded;	/* SCN_MODIFIED */
-		int message;	/* SCN_MACRORECORD */
-		uptr_t wParam;	/* SCN_MACRORECORD */
-		sptr_t lParam;	/* SCN_MACRORECORD */
-		int line;		/* SCN_MODIFIED */
-		int foldLevelNow;	/* SCN_MODIFIED */
-		int foldLevelPrev;	/* SCN_MODIFIED */
-		int margin;		/* SCN_MARGINCLICK */
-		int listType;	/* SCN_USERLISTSELECTION */
-		int x;			/* SCN_DWELLSTART, SCN_DWELLEND */
-		int y;		/* SCN_DWELLSTART, SCN_DWELLEND */
-		int token;		/* SCN_MODIFIED with SC_MOD_CONTAINER */
-		int annotationLinesAdded;	/* SC_MOD_CHANGEANNOTATION */
-	};
+    struct SCNotification {
+        struct Sci_NotifyHeader nmhdr;
+        int position;   /* SCN_STYLENEEDED, SCN_MODIFIED, SCN_DWELLSTART, SCN_DWELLEND */
+        int ch;     /* SCN_CHARADDED, SCN_KEY */
+        int modifiers;  /* SCN_KEY */
+        int modificationType;   /* SCN_MODIFIED */
+        const char *text;   /* SCN_MODIFIED, SCN_USERLISTSELECTION, SCN_AUTOCSELECTION */
+        int length;     /* SCN_MODIFIED */
+        int linesAdded; /* SCN_MODIFIED */
+        int message;    /* SCN_MACRORECORD */
+        uptr_t wParam;  /* SCN_MACRORECORD */
+        sptr_t lParam;  /* SCN_MACRORECORD */
+        int line;       /* SCN_MODIFIED */
+        int foldLevelNow;   /* SCN_MODIFIED */
+        int foldLevelPrev;  /* SCN_MODIFIED */
+        int margin;     /* SCN_MARGINCLICK */
+        int listType;   /* SCN_USERLISTSELECTION */
+        int x;          /* SCN_DWELLSTART, SCN_DWELLEND */
+        int y;      /* SCN_DWELLSTART, SCN_DWELLEND */
+        int token;      /* SCN_MODIFIED with SC_MOD_CONTAINER */
+        int annotationLinesAdded;   /* SC_MOD_CHANGEANNOTATION */
+    };
 
-	struct SearchResultMarking {
-		long _start;
-		long _end;
-	};
+    struct SearchResultMarking {
+        long _start;
+        long _end;
+    };
 
-	struct SearchResultMarkings {
-		long _length;
-		SearchResultMarking *_markings;
-	};
+    struct SearchResultMarkings {
+        long _length;
+        SearchResultMarking *_markings;
+    };
 
 #ifdef SCI_NAMESPACE
 }
