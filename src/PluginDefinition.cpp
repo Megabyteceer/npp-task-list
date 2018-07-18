@@ -215,7 +215,7 @@ VOID CALLBACK MyTimerProc(
 		TodoItem item;
 		item.hScintilla = curScintilla;
 
-		while( ::SendMessage(curScintilla, SCI_FINDTEXT, SCFIND_MATCHCASE | SCFIND_WHOLEWORD, (LPARAM)&search) > -1 )
+		while( ::SendMessage(curScintilla, SCI_FINDTEXT, SCFIND_WHOLEWORD, (LPARAM)&search) > -1 )
 		{
 			//narrow down text to what we actually want
 			search.lpstrText = search_pattern_2;
