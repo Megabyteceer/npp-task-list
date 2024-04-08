@@ -1,6 +1,6 @@
 # npp-task-list
 
-Fixed performance problems.
+Fixed performance problems
 
 ## Note :
 To compile this plugin you will need Visual Studio 2022.
