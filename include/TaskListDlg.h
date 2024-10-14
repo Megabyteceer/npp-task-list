@@ -74,15 +74,16 @@ public :
 			return;
 		//clear list LB_RESETCONTENT
 		::SendMessage( _hList, LB_RESETCONTENT, NULL, NULL );
-		if ( !todoItems.empty() )
-		{
-		// "if" branch replaces previous todoItems.clear(); to address the following issue:
-		// https://community.notepad-plus-plus.org/topic/23236/npp-task-list-plugin-window-overwrites/5
-			todoItems.clear();
-			todoItemsFingerprint = "";
-			findTasks();
-			return;
-		}
+		todoItems.clear();
+		//if ( !todoItems.empty() )
+		//{
+		//// "if" branch replaces previous todoItems.clear(); to address the following issue:
+		//// https://community.notepad-plus-plus.org/topic/23236/npp-task-list-plugin-window-overwrites/5
+		//	todoItems.clear();
+		//	todoItemsFingerprint = "";
+		//	findTasks();
+		//	return;
+		//}
 
 
 		//add list items LB_ADDSTRING
